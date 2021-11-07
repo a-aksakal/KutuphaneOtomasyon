@@ -95,6 +95,12 @@ namespace KutuphaneOtomasyon
                 sqlCmd.CommandText = "delete from AlinanKitaplar where Kitap_Adi='" + txtKitapAdi.Text + "' AND Kullanici='" + txtKullanici.Text +"'";
                 sqlCmd.ExecuteNonQuery();
                 sqlCon.Close();
+                sqlDa = new SqlDataAdapter("SELECT * FROM Kitaplar", sqlCon);
+                sqlCon.Open();
+                sqlCmd.Connection = sqlCon;
+                sqlCmd.CommandText = "update Kitaplar set Stok_durumu = Stok_durumu+1 where Kitap_Adi='" + dataGridView1.CurrentRow.Cells[0].Value + "' AND Kitap_Turu='" + dataGridView1.CurrentRow.Cells[1].Value + "' AND Yazar_Adi = '" + dataGridView1.CurrentRow.Cells[2].Value + "' AND Yazar_Soyadi = '" + dataGridView1.CurrentRow.Cells[3].Value + "' AND Yayin_Evi = '" + dataGridView1.CurrentRow.Cells[4].Value + "' AND Basim_Yili = " + dataGridView1.CurrentRow.Cells[5].Value + "";
+                sqlCmd.ExecuteNonQuery();
+                sqlCon.Close();
                 griddoldur();
             }
             else
